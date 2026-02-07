@@ -1,0 +1,1142 @@
+{
+  "info": {
+    "name": "Institute Management System API",
+    "description": "Complete API collection for Institution Management System with role-based access control.\n\n**Default Credentials:**\n- Admin: admin@school.edu / password\n- Staff: staff@school.edu / password\n- Finance: finance@school.edu / password\n\n**Setup:**\n1. Set the `base_url` variable to your server URL\n2. Login using the Auth > Login endpoint\n3. The token will be automatically set for subsequent requests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000/api"
+    },
+    {
+      "key": "token",
+      "value": ""
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login (Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.success && jsonData.data.token) {",
+                  "    pm.collectionVariables.set('token', jsonData.data.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"admin@school.edu\",\n    \"password\": \"password\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Login (Staff)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.success && jsonData.data.token) {",
+                  "    pm.collectionVariables.set('token', jsonData.data.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"staff@school.edu\",\n    \"password\": \"password\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Login (Finance)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.success && jsonData.data.token) {",
+                  "    pm.collectionVariables.set('token', jsonData.data.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"finance@school.edu\",\n    \"password\": \"password\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/auth/profile",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Change Password",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"currentPassword\": \"password\",\n    \"newPassword\": \"newpassword123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/change-password",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "change-password"]
+            }
+          }
+        },
+        {
+          "name": "Create User (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"newuser@school.edu\",\n    \"password\": \"password123\",\n    \"fullName\": \"New User\",\n    \"role\": \"staff\",\n    \"phone\": \"+91 98765 43210\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/users",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "users"]
+            }
+          }
+        },
+        {
+          "name": "Get All Users (Admin)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/auth/users",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "users"]
+            }
+          }
+        },
+        {
+          "name": "Update User (Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"fullName\": \"Updated Name\",\n    \"role\": \"finance\",\n    \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/users/USR-001",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "users", "USR-001"]
+            }
+          }
+        },
+        {
+          "name": "Delete User (Admin)",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/auth/users/USR-004",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "users", "USR-004"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Students",
+      "item": [
+        {
+          "name": "Get All Students",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/students?page=1&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["students"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" },
+                { "key": "search", "value": "", "disabled": true },
+                { "key": "class", "value": "", "disabled": true },
+                { "key": "status", "value": "", "disabled": true },
+                { "key": "academicYear", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Student by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/students/STU-2024-001",
+              "host": ["{{base_url}}"],
+              "path": ["students", "STU-2024-001"]
+            }
+          }
+        },
+        {
+          "name": "Create Student",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"fullName\": \"Test Student\",\n    \"dob\": \"2012-05-15\",\n    \"address\": \"123 Test Street\",\n    \"city\": \"Mumbai, Maharashtra\",\n    \"class\": \"V-A\",\n    \"academicYear\": \"2025-2026\",\n    \"father\": {\n        \"name\": \"Test Father\",\n        \"id\": \"PAN-TEST1234\",\n        \"dob\": \"1980-01-15\",\n        \"phone\": \"+91 98765 12345\",\n        \"email\": \"father@test.com\"\n    },\n    \"mother\": {\n        \"name\": \"Test Mother\",\n        \"id\": \"PAN-TEST5678\",\n        \"dob\": \"1982-06-20\",\n        \"phone\": \"+91 98765 67890\",\n        \"email\": \"mother@test.com\"\n    }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/students",
+              "host": ["{{base_url}}"],
+              "path": ["students"]
+            }
+          }
+        },
+        {
+          "name": "Update Student",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"fullName\": \"Updated Student Name\",\n    \"class\": \"VI-B\",\n    \"status\": \"active\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/students/STU-2024-001",
+              "host": ["{{base_url}}"],
+              "path": ["students", "STU-2024-001"]
+            }
+          }
+        },
+        {
+          "name": "Delete Student",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/students/STU-2024-001",
+              "host": ["{{base_url}}"],
+              "path": ["students", "STU-2024-001"]
+            }
+          }
+        },
+        {
+          "name": "Mark Attendance",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"date\": \"2025-01-15\",\n    \"status\": \"present\",\n    \"remarks\": \"On time\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/students/STU-2024-001/attendance",
+              "host": ["{{base_url}}"],
+              "path": ["students", "STU-2024-001", "attendance"]
+            }
+          }
+        },
+        {
+          "name": "Get Attendance",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/students/STU-2024-001/attendance?month=1&year=2025",
+              "host": ["{{base_url}}"],
+              "path": ["students", "STU-2024-001", "attendance"],
+              "query": [
+                { "key": "month", "value": "1" },
+                { "key": "year", "value": "2025" },
+                { "key": "startDate", "value": "", "disabled": true },
+                { "key": "endDate", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Add Grade",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"subject\": \"Mathematics\",\n    \"examType\": \"Mid-Term\",\n    \"score\": 85,\n    \"maxScore\": 100,\n    \"grade\": \"A\",\n    \"examDate\": \"2025-01-10\",\n    \"remarks\": \"Good performance\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/students/STU-2024-001/grades",
+              "host": ["{{base_url}}"],
+              "path": ["students", "STU-2024-001", "grades"]
+            }
+          }
+        },
+        {
+          "name": "Get Grades",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/students/STU-2024-001/grades",
+              "host": ["{{base_url}}"],
+              "path": ["students", "STU-2024-001", "grades"],
+              "query": [
+                { "key": "subject", "value": "", "disabled": true },
+                { "key": "examType", "value": "", "disabled": true }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Donors",
+      "item": [
+        {
+          "name": "Get All Donors",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/donors?page=1&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["donors"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" },
+                { "key": "search", "value": "", "disabled": true },
+                { "key": "status", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Upcoming Follow-ups",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/donors/follow-ups?days=7",
+              "host": ["{{base_url}}"],
+              "path": ["donors", "follow-ups"],
+              "query": [
+                { "key": "days", "value": "7" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Donor by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/donors/DNR-001",
+              "host": ["{{base_url}}"],
+              "path": ["donors", "DNR-001"]
+            }
+          }
+        },
+        {
+          "name": "Create Donor",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"New Donor\",\n    \"phone\": \"+91 98765 00000\",\n    \"email\": \"donor@example.com\",\n    \"address\": \"123 Donor Street, City\",\n    \"notes\": \"Interested in supporting education\",\n    \"followUpDate\": \"2025-01-20\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/donors",
+              "host": ["{{base_url}}"],
+              "path": ["donors"]
+            }
+          }
+        },
+        {
+          "name": "Update Donor",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Updated Donor Name\",\n    \"notes\": \"Updated notes\",\n    \"status\": \"active\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/donors/DNR-001",
+              "host": ["{{base_url}}"],
+              "path": ["donors", "DNR-001"]
+            }
+          }
+        },
+        {
+          "name": "Delete Donor",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/donors/DNR-001",
+              "host": ["{{base_url}}"],
+              "path": ["donors", "DNR-001"]
+            }
+          }
+        },
+        {
+          "name": "Add Donation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"amount\": 50000,\n    \"currency\": \"INR\",\n    \"purpose\": \"Scholarship Fund\",\n    \"paymentMethod\": \"bank_transfer\",\n    \"paymentReference\": \"TXN123456\",\n    \"donationDate\": \"2025-01-15\",\n    \"notes\": \"Monthly donation\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/donors/DNR-001/donations",
+              "host": ["{{base_url}}"],
+              "path": ["donors", "DNR-001", "donations"]
+            }
+          }
+        },
+        {
+          "name": "Get Donor Donations",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/donors/DNR-001/donations?page=1&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["donors", "DNR-001", "donations"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Link Student to Donor",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"studentId\": \"STU-2024-001\",\n    \"sponsorshipType\": \"Full Scholarship\",\n    \"startDate\": \"2025-01-01\",\n    \"endDate\": \"2025-12-31\",\n    \"notes\": \"Covers tuition and books\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/donors/DNR-001/link-student",
+              "host": ["{{base_url}}"],
+              "path": ["donors", "DNR-001", "link-student"]
+            }
+          }
+        },
+        {
+          "name": "Update Follow-up",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"followUpDate\": \"2025-02-01\",\n    \"notes\": \"Call to discuss annual donation\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/donors/DNR-001/follow-up",
+              "host": ["{{base_url}}"],
+              "path": ["donors", "DNR-001", "follow-up"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Finance",
+      "item": [
+        {
+          "name": "Get All Payments",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/finance/payments?page=1&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["finance", "payments"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" },
+                { "key": "status", "value": "", "disabled": true },
+                { "key": "paymentType", "value": "", "disabled": true },
+                { "key": "studentId", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Pending Payments",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/finance/payments/pending?page=1&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["finance", "payments", "pending"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"studentId\": \"STU-2024-001\",\n    \"paymentType\": \"tuition\",\n    \"amount\": 15000,\n    \"currency\": \"INR\",\n    \"dueDate\": \"2025-01-31\",\n    \"status\": \"pending\",\n    \"notes\": \"January tuition fee\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/finance/payments",
+              "host": ["{{base_url}}"],
+              "path": ["finance", "payments"]
+            }
+          }
+        },
+        {
+          "name": "Update Payment Status",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"status\": \"paid\",\n    \"paidDate\": \"2025-01-15\",\n    \"paymentMethod\": \"online\",\n    \"paymentReference\": \"PAY123456\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/finance/payments/PAY-2025-001",
+              "host": ["{{base_url}}"],
+              "path": ["finance", "payments", "PAY-2025-001"]
+            }
+          }
+        },
+        {
+          "name": "Get All Donations",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/finance/donations?page=1&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["finance", "donations"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" },
+                { "key": "status", "value": "", "disabled": true },
+                { "key": "donorId", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Donation Status",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"status\": \"completed\",\n    \"notes\": \"Cheque cleared\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/finance/donations/DON-001",
+              "host": ["{{base_url}}"],
+              "path": ["finance", "donations", "DON-001"]
+            }
+          }
+        },
+        {
+          "name": "Get Payment Stats",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/finance/stats",
+              "host": ["{{base_url}}"],
+              "path": ["finance", "stats"],
+              "query": [
+                { "key": "month", "value": "", "disabled": true },
+                { "key": "year", "value": "", "disabled": true },
+                { "key": "startDate", "value": "", "disabled": true },
+                { "key": "endDate", "value": "", "disabled": true }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Timeline",
+      "item": [
+        {
+          "name": "Get Student Timeline",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/timeline/student/STU-2024-001?page=1&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["timeline", "student", "STU-2024-001"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" },
+                { "key": "type", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Add Timeline Entry",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"type\": \"event\",\n    \"title\": \"Science Fair Participation\",\n    \"description\": \"Won 2nd place in Science Fair\",\n    \"date\": \"2025-01-15\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/timeline/student/STU-2024-001",
+              "host": ["{{base_url}}"],
+              "path": ["timeline", "student", "STU-2024-001"]
+            }
+          }
+        },
+        {
+          "name": "Update Timeline Entry",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Updated Title\",\n    \"description\": \"Updated description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/timeline/1",
+              "host": ["{{base_url}}"],
+              "path": ["timeline", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Timeline Entry",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/timeline/1",
+              "host": ["{{base_url}}"],
+              "path": ["timeline", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Calendar",
+      "item": [
+        {
+          "name": "Get All Events",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/calendar?page=1&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["calendar"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" },
+                { "key": "type", "value": "", "disabled": true },
+                { "key": "month", "value": "", "disabled": true },
+                { "key": "year", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Upcoming Events",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/calendar/upcoming?days=7",
+              "host": ["{{base_url}}"],
+              "path": ["calendar", "upcoming"],
+              "query": [
+                { "key": "days", "value": "7" },
+                { "key": "type", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Upcoming Birthdays",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/calendar/birthdays?days=30",
+              "host": ["{{base_url}}"],
+              "path": ["calendar", "birthdays"],
+              "query": [
+                { "key": "days", "value": "30" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Export ICS",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/calendar/export/ics",
+              "host": ["{{base_url}}"],
+              "path": ["calendar", "export", "ics"],
+              "query": [
+                { "key": "startDate", "value": "", "disabled": true },
+                { "key": "endDate", "value": "", "disabled": true },
+                { "key": "type", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Event by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/calendar/EVT-001",
+              "host": ["{{base_url}}"],
+              "path": ["calendar", "EVT-001"]
+            }
+          }
+        },
+        {
+          "name": "Create Event",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"New School Event\",\n    \"description\": \"Description of the event\",\n    \"type\": \"school\",\n    \"date\": \"2025-02-01\",\n    \"isAllDay\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/calendar",
+              "host": ["{{base_url}}"],
+              "path": ["calendar"]
+            }
+          }
+        },
+        {
+          "name": "Update Event",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Updated Event Title\",\n    \"description\": \"Updated description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/calendar/EVT-001",
+              "host": ["{{base_url}}"],
+              "path": ["calendar", "EVT-001"]
+            }
+          }
+        },
+        {
+          "name": "Delete Event",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/calendar/EVT-001",
+              "host": ["{{base_url}}"],
+              "path": ["calendar", "EVT-001"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Documents",
+      "item": [
+        {
+          "name": "Get All Documents",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/documents?page=1&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["documents"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" },
+                { "key": "search", "value": "", "disabled": true },
+                { "key": "type", "value": "", "disabled": true },
+                { "key": "studentId", "value": "", "disabled": true },
+                { "key": "donorId", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Document by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/documents/DOC-001",
+              "host": ["{{base_url}}"],
+              "path": ["documents", "DOC-001"]
+            }
+          }
+        },
+        {
+          "name": "Download Document",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/documents/DOC-001/download",
+              "host": ["{{base_url}}"],
+              "path": ["documents", "DOC-001", "download"]
+            }
+          }
+        },
+        {
+          "name": "Upload Document",
+          "request": {
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "file", "type": "file", "src": "" },
+                { "key": "title", "value": "Health Declaration", "type": "text" },
+                { "key": "type", "value": "health_declaration", "type": "text" },
+                { "key": "studentId", "value": "STU-2024-001", "type": "text" },
+                { "key": "description", "value": "Annual health declaration form", "type": "text" }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/documents",
+              "host": ["{{base_url}}"],
+              "path": ["documents"]
+            }
+          }
+        },
+        {
+          "name": "Delete Document",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/documents/DOC-001",
+              "host": ["{{base_url}}"],
+              "path": ["documents", "DOC-001"]
+            }
+          }
+        },
+        {
+          "name": "Get Student Documents",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/documents/student/STU-2024-001",
+              "host": ["{{base_url}}"],
+              "path": ["documents", "student", "STU-2024-001"],
+              "query": [
+                { "key": "type", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Donor Documents",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/documents/donor/DNR-001",
+              "host": ["{{base_url}}"],
+              "path": ["documents", "donor", "DNR-001"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reports",
+      "item": [
+        {
+          "name": "Dashboard Stats",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/reports/dashboard",
+              "host": ["{{base_url}}"],
+              "path": ["reports", "dashboard"]
+            }
+          }
+        },
+        {
+          "name": "Student Report",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/reports/students",
+              "host": ["{{base_url}}"],
+              "path": ["reports", "students"],
+              "query": [
+                { "key": "class", "value": "", "disabled": true },
+                { "key": "academicYear", "value": "", "disabled": true },
+                { "key": "status", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Attendance Report",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/reports/attendance",
+              "host": ["{{base_url}}"],
+              "path": ["reports", "attendance"],
+              "query": [
+                { "key": "month", "value": "1", "disabled": true },
+                { "key": "year", "value": "2025", "disabled": true },
+                { "key": "class", "value": "", "disabled": true },
+                { "key": "startDate", "value": "", "disabled": true },
+                { "key": "endDate", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Grade Report",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/reports/grades",
+              "host": ["{{base_url}}"],
+              "path": ["reports", "grades"],
+              "query": [
+                { "key": "subject", "value": "", "disabled": true },
+                { "key": "examType", "value": "", "disabled": true },
+                { "key": "class", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Payment Report",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/reports/payments",
+              "host": ["{{base_url}}"],
+              "path": ["reports", "payments"],
+              "query": [
+                { "key": "month", "value": "", "disabled": true },
+                { "key": "year", "value": "", "disabled": true },
+                { "key": "paymentType", "value": "", "disabled": true },
+                { "key": "startDate", "value": "", "disabled": true },
+                { "key": "endDate", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Donor Report",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/reports/donors",
+              "host": ["{{base_url}}"],
+              "path": ["reports", "donors"],
+              "query": [
+                { "key": "year", "value": "", "disabled": true },
+                { "key": "startDate", "value": "", "disabled": true },
+                { "key": "endDate", "value": "", "disabled": true }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health Check",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": ["{{base_url}}"],
+          "path": ["health"]
+        }
+      }
+    }
+  ]
+}
